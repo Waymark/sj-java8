@@ -17,6 +17,7 @@ public class MapLab {
     // Example: Map#putIfAbsent(K, V)
 
     @Test
+    @Ignore
     public void putIfAbsentExample() throws Exception {
         Map<Integer, String> emptyMap = new HashMap<>();
         Map<Integer, String> mapWithValue = generateMapWithValue();
@@ -43,6 +44,7 @@ public class MapLab {
     // Example: Java 7 manual "compute if absent"
 
     @Test
+    @Ignore
     public void manualComputeIfAbsentExample() throws Exception {
         Map<Integer, String> emptyMap = new HashMap<>();
         Map<Integer, String> mapWithValue = generateMapWithValue();
