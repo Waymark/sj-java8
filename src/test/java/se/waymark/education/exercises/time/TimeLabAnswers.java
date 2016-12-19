@@ -7,19 +7,18 @@ import java.time.Month;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
-import java.time.chrono.Chronology;
+import java.time.chrono.IsoChronology;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.LongStream;
 import org.junit.Assert;
 import org.junit.Test;
-import static java.time.temporal.ChronoUnit.DAYS;
-import static java.time.temporal.ChronoUnit.MINUTES;
 
 /*
  * For each exercise, develop a solution using java.time
@@ -76,20 +75,30 @@ public class TimeLabAnswers {
 
     @Test
     public void findLeapYears() {
-        final Chronology chronology = Chronology.ofLocale(Locale.US);
-        List<Long> leapYears = YEARS_2000_2050.stream()
-                                              .filter(chronology::isLeapYear)
-                                              .collect(Collectors.toList());
+        List<Integer> leapYears = YEARS_2000_2050.stream()
+                                                 .filter(IsoChronology.INSTANCE::isLeapYear)
+                                                 .collect(Collectors.toList());
 
-        Assert.assertEquals(Arrays.asList(2000L, 2004L, 2008L, 2012L, 2016L, 2020L, 2024L,
-                                          2028L, 2032L, 2036L, 2040L, 2044L, 2048L),
+        // OR
+        List<Integer> altLeapYears = YEARS_2000_2050.stream()
+                                                    .map(year -> LocalDate.of(year, 1, 1))
+                                                    .filter(LocalDate::isLeapYear)
+                                                    .map(LocalDate::getYear)
+                                                    .collect(Collectors.toList());
+
+        Assert.assertEquals(Arrays.asList(2000, 2004, 2008, 2012, 2016, 2020, 2024,
+                                          2028, 2032, 2036, 2040, 2044, 2048),
                             leapYears);
+
+        Assert.assertEquals(Arrays.asList(2000, 2004, 2008, 2012, 2016, 2020, 2024,
+                                          2028, 2032, 2036, 2040, 2044, 2048),
+                            altLeapYears);
     }
 
     // Exercise 5: Create a list containing all even (day of month is even) Fridays in the DATES list of LocalDates.
 
     @Test
-    public void findEvenMondays() {
+    public void findEvenFridays() {
         List<LocalDate> evenFridays = DATES.stream()
                                            .filter(date -> DayOfWeek.FRIDAY.equals(date.getDayOfWeek()))
                                            .filter(date -> date.getDayOfMonth() % 2 == 0)
@@ -108,35 +117,34 @@ public class TimeLabAnswers {
 
     @Test
     public void findSwedishMidsummer() {
-        LocalDate midsummer2017 = findSwedishMidsummer(2017);
-        LocalDate midsummer2018 = findSwedishMidsummer(2018);
-        LocalDate midsummer2019 = findSwedishMidsummer(2019);
-        LocalDate midsummer5BC = findSwedishMidsummer(-5);
-        LocalDate midsummer3456 = findSwedishMidsummer(3456);
+        Optional<LocalDate> midsummer2017 = findSwedishMidsummer(2017);
+        Optional<LocalDate> midsummer2018 = findSwedishMidsummer(2018);
+        Optional<LocalDate> midsummer2019 = findSwedishMidsummer(2019);
+        Optional<LocalDate> midsummer5BC = findSwedishMidsummer(-5);
+        Optional<LocalDate> midsummer3456 = findSwedishMidsummer(3456);
 
         Assert.assertEquals(
-                LocalDate.of(2017, 6, 23),
+                Optional.of(LocalDate.of(2017, 6, 23)),
                 midsummer2017);
         Assert.assertEquals(
-                LocalDate.of(2018, 6, 22),
+                Optional.of(LocalDate.of(2018, 6, 22)),
                 midsummer2018);
         Assert.assertEquals(
-                LocalDate.of(2019, 6, 21),
+                Optional.of(LocalDate.of(2019, 6, 21)),
                 midsummer2019);
         Assert.assertEquals(
-                LocalDate.of(-5, 6, 23),
+                Optional.of(LocalDate.of(-5, 6, 23)),
                 midsummer5BC);
         Assert.assertEquals(
-                LocalDate.of(3456, 6, 20),
+                Optional.of(LocalDate.of(3456, 6, 20)),
                 midsummer3456);
     }
 
-    private LocalDate findSwedishMidsummer(final int year) {
-        return IntStream.range(19, 26)
-                        .mapToObj(day -> LocalDate.of(year, 6, day))
+    private Optional<LocalDate> findSwedishMidsummer(final int year) {
+        return IntStream.rangeClosed(19, 25)
+                        .mapToObj(day -> LocalDate.of(year, Month.JUNE, day))
                         .filter(date -> DayOfWeek.FRIDAY.equals(date.getDayOfWeek()))
-                        .findFirst()
-                        .orElse(null);
+                        .findFirst();
     }
 
     // Exercise 7: Time zone operations:
@@ -166,11 +174,17 @@ public class TimeLabAnswers {
 
     @Test
     public void until() {
-        long minutesUntilNewYears = JAN_31_2017_0755.until(JAN_01_2018_0000, MINUTES);
-        long daysUntilNewYears = JAN_31_2017.until(JAN_01_2018, DAYS);
+        long minutesUntilNewYears = ChronoUnit.MINUTES.between(JAN_31_2017_0755, JAN_01_2018_0000);
+        long daysUntilNewYears = ChronoUnit.DAYS.between(JAN_31_2017, JAN_01_2018);
+
+        // OR
+        long altMinutesUntilNewYears = JAN_31_2017_0755.until(JAN_01_2018_0000, ChronoUnit.MINUTES);
+        long altDaysUntilNewYears = JAN_31_2017.until(JAN_01_2018, ChronoUnit.DAYS);
 
         Assert.assertEquals(335L, daysUntilNewYears);
         Assert.assertEquals(481925L, minutesUntilNewYears);
+        Assert.assertEquals(335L, altDaysUntilNewYears);
+        Assert.assertEquals(481925L, altMinutesUntilNewYears);
     }
 
     // Exercise 9: Time zone and duration
@@ -213,9 +227,9 @@ public class TimeLabAnswers {
                                                                            LocalTime.of(7, 55),
                                                                            ZoneId.of("CET"));
 
-    private static final List<Long> YEARS_2000_2050 = LongStream.range(2000L, 2050L)
-                                                                .boxed()
-                                                                .collect(Collectors.toList());
+    private static final List<Integer> YEARS_2000_2050 = IntStream.range(2000, 2050)
+                                                                  .boxed()
+                                                                  .collect(Collectors.toList());
 
     private static final List<LocalDate> DATES = IntStream.range(1, 500)
                                                           .filter(n -> n % 5 == 0)

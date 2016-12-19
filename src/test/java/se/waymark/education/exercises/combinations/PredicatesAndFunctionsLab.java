@@ -93,14 +93,14 @@ public class PredicatesAndFunctionsLab {
         Predicate<Integer> isEven = null; // TODO
         Predicate<Integer> isGreaterThanEleven = null; // TODO
 
-        Predicate<Integer> isEvenAndGreaterThanSeven = null; // TODO
+        Predicate<Integer> isEvenAndGreaterThanEleven = null; // TODO
         Predicate<Integer> isEvenOrGreaterThanEleven = null; // TODO
         Predicate<Integer> isEvenAndNotGreaterThanEleven = null; // TODO
         Predicate<Integer> isNeitherEvenOrGreaterThanEleven = null; // TODO
 
         List<Integer> evenIntegersGreaterThanEleven = IntStream.range(1, 21)
                                                                .boxed()
-                                                               .filter(isEvenAndGreaterThanSeven)
+                                                               .filter(isEvenAndGreaterThanEleven)
                                                                .collect(Collectors.toList());
 
         List<Integer> evenOrGreaterThanElevenIntegers = IntStream.range(1, 21)

@@ -88,14 +88,14 @@ public class PredicatesAndFunctionsLabAnswers {
         Predicate<Integer> isEven = n -> n % 2 == 0;
         Predicate<Integer> isGreaterThanEleven = n -> n > 11;
 
-        Predicate<Integer> isEvenAndGreaterThanSeven = isEven.and(isGreaterThanEleven);
+        Predicate<Integer> isEvenAndGreaterThanEleven = isEven.and(isGreaterThanEleven);
         Predicate<Integer> isEvenOrGreaterThanEleven = isEven.or(isGreaterThanEleven);
         Predicate<Integer> isEvenAndNotGreaterThanEleven = isEven.and(isGreaterThanEleven.negate());
         Predicate<Integer> isNeitherEvenOrGreaterThanEleven = isEven.negate().and(isGreaterThanEleven.negate());
 
         List<Integer> evenIntegersGreaterThanEleven = IntStream.range(1, 21)
                                                                .boxed()
-                                                               .filter(isEvenAndGreaterThanSeven)
+                                                               .filter(isEvenAndGreaterThanEleven)
                                                                .collect(Collectors.toList());
 
         List<Integer> evenOrGreaterThanElevenIntegers = IntStream.range(1, 21)

@@ -82,7 +82,7 @@ public class TimeLab {
 
     @Test
     @Ignore
-    public void findEvenMondays() {
+    public void findEvenFridays() {
         List<LocalDate> evenFridays = null; // TODO
 
         Assert.assertEquals(
