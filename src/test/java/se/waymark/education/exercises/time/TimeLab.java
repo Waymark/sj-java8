@@ -7,11 +7,12 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.LongStream;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -41,11 +42,11 @@ public class TimeLab {
     @Test
     @Ignore
     public void formatDateAndTime() {
-        String frenchFullDateTime = null; // TODO
+        String frenchFullDateTime = JAN_31_2017_0755.format(null); // TODO
 
-        String germanMediumDate = null; // TODO
+        String germanMediumDate = JAN_31_2017_0755.format(null); // TODO
 
-        String italianPatternDate = null; // TODO
+        String italianPatternDate = JAN_31_2017_0755.format(null); // TODO
 
         Assert.assertEquals("mardi 31 janvier 2017 07 h 55 CET", frenchFullDateTime);
         Assert.assertEquals("31.01.2017", germanMediumDate);
@@ -58,8 +59,8 @@ public class TimeLab {
     @Test
     @Ignore
     public void addAndSubtractDays() {
-        LocalDate dayBefore = null; // TODO
-        LocalDate dayAfter = null; // TODO
+        LocalDate dayBefore = JAN_31_2017; // TODO
+        LocalDate dayAfter = JAN_31_2017; // TODO
 
         Assert.assertEquals(JAN_31_2017.getDayOfYear() - 1, dayBefore.getDayOfYear());
         Assert.assertEquals(JAN_31_2017.getDayOfYear() + 1, dayAfter.getDayOfYear());
@@ -71,10 +72,12 @@ public class TimeLab {
     @Test
     @Ignore
     public void findLeapYears() {
-        List<Long> leapYears = null; // TODO
+        List<Integer> leapYears = YEARS_2000_2050.stream()
+                                                 .filter(null) // TODO
+                                                 .collect(null); // TODO
 
-        Assert.assertEquals(Arrays.asList(2000L, 2004L, 2008L, 2012L, 2016L, 2020L, 2024L,
-                                          2028L, 2032L, 2036L, 2040L, 2044L, 2048L),
+        Assert.assertEquals(Arrays.asList(2000, 2004, 2008, 2012, 2016, 2020, 2024,
+                                          2028, 2032, 2036, 2040, 2044, 2048),
                             leapYears);
     }
 
@@ -83,7 +86,10 @@ public class TimeLab {
     @Test
     @Ignore
     public void findEvenFridays() {
-        List<LocalDate> evenFridays = null; // TODO
+        List<LocalDate> evenFridays = DATES.stream()
+                                           .filter(null) // TODO
+                                           .filter(null) // TODO
+                                           .collect(null); // TODO
 
         Assert.assertEquals(
                 Arrays.asList(LocalDate.of(2017, 2, 10), LocalDate.of(2017, 5, 26), LocalDate.of(2017, 6, 30),
@@ -99,30 +105,31 @@ public class TimeLab {
     @Test
     @Ignore
     public void findSwedishMidsummer() {
-        LocalDate midsummer2017 = findSwedishMidsummer(2017);
-        LocalDate midsummer2018 = findSwedishMidsummer(2018);
-        LocalDate midsummer2019 = findSwedishMidsummer(2019);
-        LocalDate midsummer5BC = findSwedishMidsummer(-5);
-        LocalDate midsummer3456 = findSwedishMidsummer(3456);
+        Optional<LocalDate> midsummer2017 = findSwedishMidsummer(2017);
+        Optional<LocalDate> midsummer2018 = findSwedishMidsummer(2018);
+        Optional<LocalDate> midsummer2019 = findSwedishMidsummer(2019);
+        Optional<LocalDate> midsummer5BC = findSwedishMidsummer(-5);
+        Optional<LocalDate> midsummer3456 = findSwedishMidsummer(3456);
 
         Assert.assertEquals(
-                LocalDate.of(2017, 6, 23),
+                Optional.of(LocalDate.of(2017, 6, 23)),
                 midsummer2017);
         Assert.assertEquals(
-                LocalDate.of(2018, 6, 22),
+                Optional.of(LocalDate.of(2018, 6, 22)),
                 midsummer2018);
         Assert.assertEquals(
-                LocalDate.of(2019, 6, 21),
+                Optional.of(LocalDate.of(2019, 6, 21)),
                 midsummer2019);
         Assert.assertEquals(
-                LocalDate.of(-5, 6, 23),
+                Optional.of(LocalDate.of(-5, 6, 23)),
                 midsummer5BC);
         Assert.assertEquals(
-                LocalDate.of(3456, 6, 20),
+                Optional.of(LocalDate.of(3456, 6, 20)),
                 midsummer3456);
     }
 
-    private LocalDate findSwedishMidsummer(final int year) {
+    private Optional<LocalDate> findSwedishMidsummer(final int year) {
+        // Hint: IntStream.rangeClosed(19, 25) creates an IntStream with values from 19 to 25
         return null; // TODO
     }
 
@@ -135,8 +142,8 @@ public class TimeLab {
     @Test
     @Ignore
     public void timeZoneOperations() {
-        ZonedDateTime sameInstantInCa = null; // TODO
-        ZonedDateTime sameLocalTimeInCa = null; // TODO
+        ZonedDateTime sameInstantInCa = JAN_31_2017_0755; // TODO
+        ZonedDateTime sameLocalTimeInCa = JAN_31_2017_0755; // TODO
 
         Assert.assertEquals(ZonedDateTime.of(JAN_31_2017,
                                              LocalTime.of(12, 25),
@@ -155,8 +162,11 @@ public class TimeLab {
     @Test
     @Ignore
     public void until() {
-        long minutesUntilNewYears = 0; // TODO
-        long daysUntilNewYears = 0; // TODO
+        /**
+         *  Hint: Take a look at the enum {@link ChronoUnit}
+         */
+        long minutesUntilNewYears = 0L; // TODO
+        long daysUntilNewYears = 0L; // TODO
 
         Assert.assertEquals(335L, daysUntilNewYears);
         Assert.assertEquals(481925L, minutesUntilNewYears);
@@ -173,7 +183,11 @@ public class TimeLab {
         ZonedDateTime departureTime = ZonedDateTime.of(LocalDate.of(2017, 4, 2),
                                                        LocalTime.of(7, 45),
                                                        ZoneId.of("America/Los_Angeles"));
-        ZonedDateTime arrivalTime = null; // TODO
+        ZonedDateTime arrivalTime = departureTime; // TODO
+
+        ZoneId arrivalTimeZone = arrivalTime.getZone();
+
+        // Hint: use arrivalTimeZone to check daylight savings rules at destination
         Boolean isDaylightSavingsAtArrival = null; // TODO
 
         Assert.assertEquals(2017, arrivalTime.getYear());
@@ -199,9 +213,9 @@ public class TimeLab {
                                                                            LocalTime.of(7, 55),
                                                                            ZoneId.of("CET"));
 
-    private static final List<Long> YEARS_2000_2050 = LongStream.range(2000L, 2050L)
-                                                                .boxed()
-                                                                .collect(Collectors.toList());
+    private static final List<Integer> YEARS_2000_2050 = IntStream.range(2000, 2050)
+                                                                  .boxed()
+                                                                  .collect(Collectors.toList());
 
     private static final List<LocalDate> DATES = IntStream.range(1, 500)
                                                           .filter(n -> n % 5 == 0)
