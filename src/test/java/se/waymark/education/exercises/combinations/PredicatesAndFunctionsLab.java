@@ -42,8 +42,8 @@ public class PredicatesAndFunctionsLab {
     @Test
     @Ignore
     public void combineBasicIntegerFunctions() throws Exception {
-        Function<Integer, Integer> doubler = null; // TODO
-        Function<Integer, Integer> addFive = null; // TODO
+        Function<Integer, Integer> doubler = null; // copy from exercise 1
+        Function<Integer, Integer> addFive = null; // copy from exercise 1
 
         Function<Integer, Integer> doubleThenAddFive = null; // TODO
         Function<Integer, Integer> addFiveThenDouble = null; // TODO
@@ -90,8 +90,8 @@ public class PredicatesAndFunctionsLab {
     @Test
     @Ignore
     public void combineBasicIntegerPredicates() throws Exception {
-        Predicate<Integer> isEven = null; // TODO
-        Predicate<Integer> isGreaterThanEleven = null; // TODO
+        Predicate<Integer> isEven = null; // copy from exercise 3
+        Predicate<Integer> isGreaterThanEleven = null; // copy from exercise 3
 
         Predicate<Integer> isEvenAndGreaterThanEleven = null; // TODO
         Predicate<Integer> isEvenOrGreaterThanEleven = null; // TODO

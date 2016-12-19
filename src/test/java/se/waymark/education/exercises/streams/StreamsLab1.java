@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -31,7 +32,8 @@ public class StreamsLab1 {
     @Test
     @Ignore
     public void filter() throws Exception {
-        Stream<String> shorterThanFour = null; // TODO
+        Stream<String> shorterThanFour = WORD_LIST.stream()
+                                                  .filter(null); // TODO
 
         Assert.assertEquals("in, can, be, by, of", shorterThanFour.collect(Collectors.joining(", ")));
     }
@@ -42,7 +44,9 @@ public class StreamsLab1 {
     @Test
     @Ignore
     public void twoFilters() throws Exception {
-        Stream<String> longerThanFourAndStartsWithAnA = null; // TODO
+        Stream<String> longerThanFourAndStartsWithAnA = WORD_LIST.stream()
+                                                                 .filter(null) // TODO
+                                                                 .filter(null); // TODO
 
         Assert.assertEquals("adding, another", longerThanFourAndStartsWithAnA.collect(Collectors.joining(", ")));
     }
@@ -52,7 +56,8 @@ public class StreamsLab1 {
     @Test
     @Ignore
     public void mapToCharacter() throws Exception {
-        Stream<Character> firstCharacters = null; // TODO
+        Stream<Character> firstCharacters = WORD_LIST.stream()
+                                                     .map(null); // TODO
 
         Assert.assertEquals("e, p, i, c, s, c, b, s, b, a, a, l, o, i",
                             firstCharacters.map(String::valueOf)
@@ -65,7 +70,9 @@ public class StreamsLab1 {
     @Test
     @Ignore
     public void mapAndFilter() throws Exception {
-        Stream<Character> evenLengthWordFirstCharacters = null; // TODO
+        Stream<Character> evenLengthWordFirstCharacters = WORD_LIST.stream()
+                                                                   .filter(null) // TODO
+                                                                   .map(null); // TODO
 
         Assert.assertEquals("i, c, b, s, b, a, o",
                             evenLengthWordFirstCharacters.map(String::valueOf)
@@ -95,6 +102,7 @@ public class StreamsLab1 {
     @Test
     @Ignore
     public void splitStringIntoStream() throws IOException {
+        Pattern pattern = Pattern.compile(",");
         Stream<String> splitStream = null; // TODO
 
         assertEquals(WORD_LIST, splitStream.collect(Collectors.toList()));

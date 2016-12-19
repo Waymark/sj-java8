@@ -21,7 +21,12 @@ public class LambdaLab {
     @Ignore
     @Test
     public void writeClassicComparator() {
-        Comparator<String> comparator = null;
+        Comparator<String> comparator = new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                return 0; // TODO
+            }
+        };
 
         assertEquals(6, comparator.compare("13 chars long", "7 chars"));
         assertEquals(-6, comparator.compare("7 chars", "13 chars long"));
@@ -34,41 +39,11 @@ public class LambdaLab {
     @Ignore
     @Test
     public void writeLambdaComparator() {
-        Comparator<String> comparator = null;
+        Comparator<String> comparator = null; // TODO
 
         assertEquals(6, comparator.compare("13 chars long", "7 chars"));
         assertEquals(-6, comparator.compare("7 chars", "13 chars long"));
         assertEquals(0, comparator.compare("same", "same"));
-    }
-
-    // Exercise 3: Use an anonymous inner class to implement a Runnable that adds the string "run!" to the list addToMe
-
-    @Ignore
-    @Test
-    public void writeClassicRunnable() {
-        final List<String> addRunToMe = new ArrayList<>();
-
-        Runnable runnable = null;
-
-        runnable.run();
-
-        assertEquals(1, addRunToMe.size());
-        assertEquals("run!", addRunToMe.get(0));
-    }
-
-    // Exercise 4: Use a lambda expression to implement a Runnable that adds the string "run!" to the list addToMe
-
-    @Ignore
-    @Test
-    public void writeRunnable() {
-        final List<String> addRunToMe = new ArrayList<>();
-
-        Runnable runnable = null;
-
-        runnable.run();
-
-        assertEquals(1, addRunToMe.size());
-        assertEquals("run!", addRunToMe.get(0));
     }
 
     // Exercise 5: Use an anonymous inner class to implement a Predicate<String> that that checks if the fourth letter
@@ -77,7 +52,12 @@ public class LambdaLab {
     @Ignore
     @Test
     public void writeClassicPredicate() {
-        Predicate<String> predicate = null;
+        Predicate<String> predicate = new Predicate<String>() {
+            @Override
+            public boolean test(String s) {
+                return false; // TODO
+            }
+        };
 
         assertFalse(predicate.test("ABCDE"));
         assertTrue(predicate.test("CDEFG"));
